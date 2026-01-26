@@ -13,6 +13,11 @@ It acts as a **transparent proxy** between a client and third-party APIs, forwar
 
 The system is intentionally designed to be **simple, extensible, and production-aligned**, focusing on correct architectural decisions rather than over-engineering.
 
+<img width="1346" height="477" alt="image" src="https://github.com/user-attachments/assets/9316f9eb-fd6e-4aa8-a7b4-9b6c6301ea45" />
+
+<img width="1328" height="438" alt="image" src="https://github.com/user-attachments/assets/0b542829-9500-45e7-b937-2dbb8424dc71" />
+
+
 ---
 
 ## 🧠 Problem Statement
