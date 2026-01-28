@@ -32,3 +32,12 @@ def upload_json(object_name: str, data: dict):
         length=len(raw),
         content_type="application/json",
     )
+
+def upload_xml_bytes(object_name: str, data: bytes):
+    minio_client.put_object(
+        bucket_name=MINIO_BUCKET,
+        object_name=object_name,
+        data=BytesIO(data),
+        length=len(data),
+        content_type="application/xml"
+    )

@@ -1,68 +1,66 @@
 from fastapi import FastAPI, BackgroundTasks, HTTPException
-from pydantic import BaseModel
+from fastapi.responses import StreamingResponse
+import httpx
 import uuid
 import time
-import httpx
+from io import BytesIO
+from fastapi.middleware.gzip import GZipMiddleware
 
-from storage.minio_client import upload_json
-from core.config import EXTERNAL_BASE_URL
+from storage.minio_client import upload_xml_bytes, upload_json
+from core.config import EXTERNAL_BASE_URL, EXTERNAL_PATH, EXTERNAL_API_KEY
 
 app = FastAPI(title="Proxy Service")
+app.add_middleware(GZipMiddleware, minimum_size=1024)
 
 
-class ProxyRequest(BaseModel):
-    method: str
-    path: str
-    query: dict | None = None
-    headers: dict | None = None
-    body: dict | None = None
-
-
-@app.post("/proxy/external")
-async def proxy_external(
-    req: ProxyRequest,
-    background_tasks: BackgroundTasks
-):
-    if not EXTERNAL_BASE_URL:
-        raise HTTPException(status_code=500, detail="EXTERNAL_BASE_URL not configured")
+@app.get("/proxy/external/xml")
+async def proxy_external_xml(background_tasks: BackgroundTasks):
+    if not all([EXTERNAL_BASE_URL, EXTERNAL_PATH, EXTERNAL_API_KEY]):
+        raise HTTPException(500, "External API configuration missing")
 
     request_id = str(uuid.uuid4())
     start_time = time.time()
 
-    url = f"{EXTERNAL_BASE_URL}{req.path}"
+    url = f"{EXTERNAL_BASE_URL}{EXTERNAL_PATH}"
+    params = {"api_key": EXTERNAL_API_KEY}
 
-    async with httpx.AsyncClient(timeout=30.0) as client:
-        response = await client.request(
-            method=req.method.upper(),
-            url=url,
-            params=req.query,
-            headers=req.headers,
-            json=req.body
+    async def stream_and_capture():
+        buffer = BytesIO()
+
+        async with httpx.AsyncClient(timeout=None) as client:
+            async with client.stream("GET", url, params=params) as response:
+                if response.status_code != 200:
+                    raise HTTPException(response.status_code, "External API failed")
+
+                async for chunk in response.aiter_bytes():
+                    buffer.write(chunk)   # capture for MinIO
+                    yield chunk            # stream to client
+
+        # after streaming finishes → store in MinIO
+        xml_bytes = buffer.getvalue()
+
+        background_tasks.add_task(
+            upload_xml_bytes,
+            f"responses/{request_id}.xml",
+            xml_bytes
         )
 
-    data = response.json()
-    latency_ms = int((time.time() - start_time) * 1000)
+        background_tasks.add_task(
+            upload_json,
+            f"metadata/{request_id}.json",
+            {
+                "url": url,
+                "status_code": 200,
+                "latency_ms": int((time.time() - start_time) * 1000),
+                "size_bytes": len(xml_bytes),
+                "timestamp": time.time(),
+            }
+        )
 
-    background_tasks.add_task(
-        upload_json,
-        f"responses/{request_id}.json",
-        data
-    )
-
-    background_tasks.add_task(
-        upload_json,
-        f"metadata/{request_id}.json",
-        {
-            "method": req.method,
-            "url": url,
-            "status_code": response.status_code,
-            "latency_ms": latency_ms,
-            "timestamp": time.time(),
+    return StreamingResponse(
+        stream_and_capture(),
+        media_type="application/xml",
+        headers={
+            "X-Request-ID": request_id,
         }
     )
-
-    return {
-        "request_id": request_id,
-        "data": data,
-        "latency_ms": latency_ms
-    }
