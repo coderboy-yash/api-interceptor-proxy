@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException,Response
+from fastapi import FastAPI, HTTPException,Response,Depends
 from fastapi.responses import StreamingResponse
 import httpx
 import uuid
@@ -8,34 +8,16 @@ from io import BytesIO
 from storage.minio_client import put_raw_object, put_metadata
 from core.config import EXTERNAL_BASE_URL, EXTERNAL_API_KEY, HERE_BASE_URL, HERE_USERNAME, HERE_PASSWORD, PATH_ONE, PATH_TWO, PATH_THREE 
 
-app = FastAPI(title="Proxy Service")
+from security import verify_api_key
 
-# -------------------------------------------------
-# CONFIG: endpoint → upstream path → filename
-# --------------------,-----------------------------
-# ENDPOINT_CONFIG = {
-#     "test":{
-#         "path": PATH_ONE,
-#         "filename": "test.gz",
-#     },
-#     "india_part1": {
-#         "path": "/api/v1/live-traffic/india-part1of",
-#         "filename": "india-part1of3.gz",
-#     },
-#     "india_part2": {
-#         "path": "/api/v1/live-traffic/india-part2of3",
-#         "filename": "india-part2of3.gz",
-#     },
-#     "india_part3": {
-#         "path": "/api/v1/live-traffic/india-part3of3",
-#         "filename": "india-part3of3.gz",
-#     },
-# }
+app = FastAPI(
+    title="Proxy Service",
+    dependencies=[Depends(verify_api_key)]
+)
 
 
-# -------------------------------------------------
-# SHARED proxy function (THE core logic)
-# -------------------------------------------------
+
+
 async def proxy_external(
     *,
     base_url: str,
@@ -99,10 +81,7 @@ async def proxy_external(
     )
 
 
-# -------------------------------------------------
-# ENDPOINTS (thin, readable, zero logic)
-# -------------------------------------------------
-# HERE_URL = f"{HERE_BASE_URL}/{PATH_ONE}"
+
 
 @app.get("/live-traffic/india-part1of3")
 async def traffic():
@@ -132,19 +111,4 @@ async def traffic():
     )
      
 
-# @app.get("/traffic/india/part1")
-# async def india_part1():
-#     cfg = ENDPOINT_CONFIG["india_part1"]
-#     return await proxy_external(cfg["path"], cfg["filename"])
 
-
-# @app.get("/traffic/india/part2")
-# async def india_part2():
-#     cfg = ENDPOINT_CONFIG["india_part2"]
-#     return await proxy_external(cfg["path"], cfg["filename"])
-
-
-# @app.get("/traffic/india/part3")
-# async def india_part3():
-#     cfg = ENDPOINT_CONFIG["india_part3"]
-#     return await proxy_external(cfg["path"], cfg["filename"])
