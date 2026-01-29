@@ -1,0 +1,8 @@
+install all the packages from requirements.txt -> pip install -r requirements.txt
+go to services->proxy->
+how to start the project ->run main.py file -> uvicorn main:app --reload
+run MinIo docker container -> go to root folder (/proxy project) and run ->docker-compose up -d 
+now your backend and data storage is working.
+
+go to localhost:8000/docs it will open fast api end points, test it.
+go to localhost:9000 to see the MinIO console go to proxy storage bucket /blobs to see the actual xml files.
