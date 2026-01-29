@@ -1,66 +1,150 @@
-from fastapi import FastAPI, BackgroundTasks, HTTPException
+from fastapi import FastAPI, HTTPException,Response
 from fastapi.responses import StreamingResponse
 import httpx
 import uuid
 import time
 from io import BytesIO
-from fastapi.middleware.gzip import GZipMiddleware
 
-from storage.minio_client import upload_xml_bytes, upload_json
-from core.config import EXTERNAL_BASE_URL, EXTERNAL_PATH, EXTERNAL_API_KEY
+from storage.minio_client import put_raw_object, put_metadata
+from core.config import EXTERNAL_BASE_URL, EXTERNAL_API_KEY, HERE_BASE_URL, HERE_USERNAME, HERE_PASSWORD, PATH_ONE, PATH_TWO, PATH_THREE 
 
 app = FastAPI(title="Proxy Service")
-app.add_middleware(GZipMiddleware, minimum_size=1024)
+
+# -------------------------------------------------
+# CONFIG: endpoint → upstream path → filename
+# --------------------,-----------------------------
+# ENDPOINT_CONFIG = {
+#     "test":{
+#         "path": PATH_ONE,
+#         "filename": "test.gz",
+#     },
+#     "india_part1": {
+#         "path": "/api/v1/live-traffic/india-part1of",
+#         "filename": "india-part1of3.gz",
+#     },
+#     "india_part2": {
+#         "path": "/api/v1/live-traffic/india-part2of3",
+#         "filename": "india-part2of3.gz",
+#     },
+#     "india_part3": {
+#         "path": "/api/v1/live-traffic/india-part3of3",
+#         "filename": "india-part3of3.gz",
+#     },
+# }
 
 
-@app.get("/proxy/external/xml")
-async def proxy_external_xml(background_tasks: BackgroundTasks):
-    if not all([EXTERNAL_BASE_URL, EXTERNAL_PATH, EXTERNAL_API_KEY]):
-        raise HTTPException(500, "External API configuration missing")
+# -------------------------------------------------
+# SHARED proxy function (THE core logic)
+# -------------------------------------------------
+async def proxy_external(
+    *,
+    base_url: str,
+    path: str,
+    filename: str,
+    params: dict | None = None,
+    basic_auth: tuple | None = None,
+):
+    object_id = str(uuid.uuid4())
+    start = time.time()
 
-    request_id = str(uuid.uuid4())
-    start_time = time.time()
+    url = f"{base_url}{path}"
+    buffer = BytesIO()
+    content_type = "application/octet-stream"
 
-    url = f"{EXTERNAL_BASE_URL}{EXTERNAL_PATH}"
-    params = {"api_key": EXTERNAL_API_KEY}
-
-    async def stream_and_capture():
-        buffer = BytesIO()
+    async def stream():
+        nonlocal content_type
 
         async with httpx.AsyncClient(timeout=None) as client:
-            async with client.stream("GET", url, params=params) as response:
-                if response.status_code != 200:
-                    raise HTTPException(response.status_code, "External API failed")
+            async with client.stream(
+                "GET",
+                url,
+                params=params,
+                auth=basic_auth,
+            ) as resp:
+                if resp.status_code != 200:
+                    raise HTTPException(resp.status_code, "Upstream failed")
 
-                async for chunk in response.aiter_bytes():
-                    buffer.write(chunk)   # capture for MinIO
-                    yield chunk            # stream to client
+                content_type = resp.headers.get(
+                    "content-type", "application/octet-stream"
+                )
 
-        # after streaming finishes → store in MinIO
-        xml_bytes = buffer.getvalue()
+                async for chunk in resp.aiter_bytes():
+                    buffer.write(chunk)
+                    yield chunk
 
-        background_tasks.add_task(
-            upload_xml_bytes,
-            f"responses/{request_id}.xml",
-            xml_bytes
-        )
+        raw = buffer.getvalue()
 
-        background_tasks.add_task(
-            upload_json,
-            f"metadata/{request_id}.json",
+        put_raw_object(object_id, raw, content_type)
+        put_metadata(
+            object_id,
             {
-                "url": url,
+                "source_url": url,
+                "path": path,
+                "filename": filename,
                 "status_code": 200,
-                "latency_ms": int((time.time() - start_time) * 1000),
-                "size_bytes": len(xml_bytes),
+                "content_type": content_type,
+                "size_bytes": len(raw),
+                "latency_ms": int((time.time() - start) * 1000),
                 "timestamp": time.time(),
-            }
+            },
         )
 
     return StreamingResponse(
-        stream_and_capture(),
-        media_type="application/xml",
+        stream(),
+        media_type=content_type,
         headers={
-            "X-Request-ID": request_id,
-        }
+            "Content-Disposition": f'attachment; filename="{filename}"',
+            "X-Object-ID": object_id,
+        },
     )
+
+
+# -------------------------------------------------
+# ENDPOINTS (thin, readable, zero logic)
+# -------------------------------------------------
+# HERE_URL = f"{HERE_BASE_URL}/{PATH_ONE}"
+
+@app.get("/live-traffic/india-part1of3")
+async def traffic():
+    return await proxy_external(
+        base_url=HERE_BASE_URL,
+        path=f"/{PATH_ONE}",
+        filename="india-part1of3.gz",
+        basic_auth=(HERE_USERNAME, HERE_PASSWORD),
+    )
+     
+@app.get("/live-traffic/india-part2of3")
+async def traffic():
+    return await proxy_external(
+        base_url=HERE_BASE_URL,
+        path=f"/{PATH_TWO}",
+        filename="india-part2of3.gz",
+        basic_auth=(HERE_USERNAME, HERE_PASSWORD),
+    )
+     
+@app.get("/live-traffic/india-part3of3")
+async def traffic():
+    return await proxy_external(
+        base_url=HERE_BASE_URL,
+        path=f"/{PATH_THREE}",
+        filename="india-part3of3.gz",
+        basic_auth=(HERE_USERNAME, HERE_PASSWORD),
+    )
+     
+
+# @app.get("/traffic/india/part1")
+# async def india_part1():
+#     cfg = ENDPOINT_CONFIG["india_part1"]
+#     return await proxy_external(cfg["path"], cfg["filename"])
+
+
+# @app.get("/traffic/india/part2")
+# async def india_part2():
+#     cfg = ENDPOINT_CONFIG["india_part2"]
+#     return await proxy_external(cfg["path"], cfg["filename"])
+
+
+# @app.get("/traffic/india/part3")
+# async def india_part3():
+#     cfg = ENDPOINT_CONFIG["india_part3"]
+#     return await proxy_external(cfg["path"], cfg["filename"])

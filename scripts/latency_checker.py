@@ -3,7 +3,7 @@ import requests
 import threading
 
 URL_1 = "https://api.genesysmap.com/api/v1/live-traffic/india-part1of3?api_key=970c4ce718df4501bf329058c6a78ead"
-URL_2 = "http://localhost:8000/proxy/external/xml"
+URL_2 = "http://localhost:8000/traffic/india/part1"
 
 
 def check_latency(url, results, key):

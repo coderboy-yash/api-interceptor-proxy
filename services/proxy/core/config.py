@@ -15,3 +15,11 @@ MINIO_SECURE = False
 EXTERNAL_PATH = os.getenv("EXTERNAL_PATH")
 EXTERNAL_API_KEY = os.getenv("EXTERNAL_API_KEY")
 
+# here
+HERE_BASE_URL = os.getenv("HERE_BASE_URL")
+HERE_USERNAME = os.getenv("HERE_USERNAME")
+HERE_PASSWORD = os.getenv("HERE_PASSWORD")
+PATH_ONE = os.getenv("PATH_ONE")
+PATH_TWO = os.getenv("PATH_TWO")
+PATH_THREE = os.getenv("PATH_THREE")
+
