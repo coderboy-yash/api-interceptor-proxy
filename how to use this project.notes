@@ -6,3 +6,13 @@ now your backend and data storage is working.
 
 go to localhost:8000/docs it will open fast api end points, test it.
 go to localhost:9000 to see the MinIO console go to proxy storage bucket /blobs to see the actual xml files.
+
+
+meeting notes:
+expectation: high level overview of system they are delivery by 3 feb.
+map file server,
+harish , 
+helm charts and container images by sarhan,
+crossplane vs terraform.
+
+olr, 

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<TRAFFICML_REALTIME xmlns="http://traffic.nokia.com/trafficml-flow-3.2" MAP_VERSION="202504" MAP_DVN="25131" TMC_TABLE_VERSION="18.0" CREATED_TIMESTAMP="2026-01-29T08:38:13Z" VERSION="3.2.2" UNITS="metric">
+    <FEATURES>
+        <FEATURE>LANES</FEATURE>
+        <FEATURE>FORM_OF_WAY</FEATURE>
+        <FEATURE>EXPRESS</FEATURE>
+        <FEATURE>OPEN_LR</FEATURE>
+        <FEATURE>DLR_AGGREGATION</FEATURE>
+        <FEATURE>HOV</FEATURE>
+    </FEATURES>
+    <RWS TY="TMC" MAP_VERSION="202504" MAP_DVN="25131" EBU_COUNTRY_CODE="5" EXTENDED_COUNTRY_CODE="F2" TABLE_ID="2">
+        <RW LI="502-00333" DE="4th Signal Hill Avenue" PBT="2026-01-29T08:38:13Z" mid="482d2489-ce44-4140-90f9-2177963c5b4a">
+            <FIS>
+                <FI>
+                    <TMC PC="336" DE="Sewri/Boat Hard Road" QD="+" LE="0.05673"/>
+                    <TPEGOpenLRBase64>CCgBEAAkIzPN9w1/OgAJBQQDA60ACgQDA38A/5f/yAAJBQQDAysAMABG</TPEGOpenLRBase64>
+                    <CF TY="TR" SP="17.99" SU="17.99" FF="27.0" JF="2.9664" CN="0.72" TS="O"/>
+                </FI>
+                <FI>
+                    <TMC PC="335" DE="Signal Hill Avenue" QD="+" LE="0.29488"/>
+                    <TPEGOpenLRBase64>CCkBEAAlJDPN9w1/OgAJBQQDA60ACgUEA4JgAP7l/1kACQUEAwIvADA5AA==</TPEGOpenLRBase64>
+                    <CF TY="TR" SP="14.8" SU="14.8" FF="14.0" JF="0.0" CN="0.89" TS="O"/>
+                </FI>
+                <FI>
+                    <TMC PC="334" DE="Sant Savta Marg/Victoria Marg" QD="+" LE="0.28652"/>
+                    <TPEGOpenLRBase64>CCkBEAAlJDPNcw1+7AAJBQQDAqsACgUEA4IfAP82/1cACQUEAwIXADAAAA==</TPEGOpenLRBase64>
+                    <CF TY="TR" SP="23.4" SU="23.4" FF="32.0" JF="3.58335" CN="0.84" TS="O">
+                        <SSS>
+                            <SS LE="0.17467" SP="18.89" SU="18.89" FF="32.0" JF="5.56831" TS="O"/>
+                            <SS LE="0.11184" SP="37.33" SU="37.33" FF="32.0" JF="0.0" TS="O"/>
+                        </SSS>
+                    </CF>
+                </FI>
+            </FIS>
+        </RW>
+        <RW LI="502-00323" DE="Ramrao Nayak Marg" PBT="2026-01-29T08:38:13Z" mid="3c26175f-d426-4ac3-8ea8-0f38313c5844">
+            <FIS>
+                <FI>
+                    <TMC PC="326" DE="Swami Vivekanand Road/Jabwata Chowk" QD="+" LE="0.01267"/>
+                    <TPEGOpenLRBase64>CCgBEAAkIzPLpA2PlAAJBQQEA7wACgQDBA0A//X//wAJBQQEAzwAMAAA</TPEGOpenLRBase64>
+                    <CF TY="TR" SP="8.98" SU="8.98" FF="14.0" JF="8.15484" CN="0.99" TS="O"/>
+                </FI>
+                <FI>
+                    <TMC PC="325" DE="11th Road/Kamalabai Choubal Marg" QD="+" LE="0.19057"/>
+                    <TPEGOpenLRBase64>CCkBEAAlJDPLnw2PkwAJBQQEA8IACgUEBIE/AP9MABIACQUEBANEADAAAA==</TPEGOpenLRBase64>
+                    <CF TY="TR" SP="3.9" SU="3.9" FF="16.0" JF="8.14003" CN="0.98" TS="O"/>
+                </FI>
+                <FI>
+                    <TMC PC="324" DE="Linking Road/Padmashri Rajinder Singh Bedi Chowk" QD="+" LE="0.16213"/>
+                    <TPEGOpenLRBase64>CCkBEAAlJDPLSw2PnAAJBQQEA8QACgUEBIEiAP9nABEACQUEBANGADAAAA==</TPEGOpenLRBase64>
+                    <CF TY="TR" SP="16.09" SU="16.09" FF="19.0" JF="0.0" CN="0.99" TS="O"/>
+                </FI>
+            </FIS>
+        </RW>
+        <RW LI="502+00333" DE="4th Signal Hill Avenue" PBT="2026-01-29T08:38:13Z" mid="eb44ada9-86c0-4069-8548-89e01d3a9718">
+            <FIS>
+                <FI>
+                    <TMC PC="334" DE="Sant Savta Marg/Victoria Marg" QD="-" LE="0.0206"/>
+                    <TPEGOpenLRBase64>CCoBEAAmJTPNFg1+pQAJBQQDAhUACgUEA4E0AAB5AHEACQUEAwKnADAAgR8=</TPEGOpenLRBase64>
+                    <CF TY="TR" SP="26.26" SU="26.26" FF="26.0" JF="0.0" CN="0.82" TS="O"/>
+                </FI>
+                <FI>
+                    <TMC PC="335" DE="Signal Hill Avenue" QD="-" LE="0.25208"/>
+                    <TPEGOpenLRBase64>CCkBEAAlJDPNFg1+pQAJBQQDAhUACgUEA4IQAADCAJ8ACQUEAwKrADAVAA==</TPEGOpenLRBase64>
+                    <CF TY="TR" SP="31.09" SU="31.09" FF="27.0" JF="0.0" CN="0.83" TS="O"/>
+                </FI>
+                <FI>
+                    <TMC PC="336" DE="Sewri/Boat Hard Road" QD="-" LE="0.36871"/>
+                    <TPEGOpenLRBase64>CCkBEAAlJDPNcA1+7wAJBQQDAh8ACgUEA4JzAAEgAKEACQUEAwOtADAAAA==</TPEGOpenLRBase64>
+                    <CF TY="TR" SP="18.23" SU="18.23" FF="16.0" JF="0.0" CN="0.87" TS="O"/>
+                </FI>
+            </FIS>
+        </RW>
+        <RW LI="502-00327" DE="19th Road/Shree Maruai Mandir Marg" PBT="2026-01-29T08:38:13Z" mid="20776ce2-fa03-4710-8cc0-2bfe1c8120ed">
+            <FIS>
+                <FI>
+                    <TMC PC="332" DE="Gazdahar Chowk/Juhu Road" QD="+" LE="0.01712"/>
+                    <TPEGOpenLRBase64>CCoBEAAmJTPKsg2SSQAJBQQDA4kACgUEA4M3AP9A/qEACQUEAwMbADAAgyY=</TPEGOpenLRBase64>
+                    <CF TY="TR" SP="9.01" SU="9.01" FF="21.0" JF="8.15484" CN="0.99" TS="O"/>
+                </FI>
+                <FI>
+                    <TMC PC="331" DE="Hanuman Chowk/North Avenue" QD="+" LE="0.70844"/>
+                    <TPEGOpenLRBase64>CCkBEAAlJDPKsg2SSQAJBQQDA4kACgUEA4VUAP7S/bYACQUEAwMLADARAA==</TPEGOpenLRBase64>
+                    <CF TY="TR" SP="4.76" SU="4.76" FF="15.0" JF="8.52872" CN="0.99" TS="O"/>
+                </FI>
+                <FI>
+                    <TMC PC="330" DE="B. C. Chatterjee Marg/Main Avenue Road" QD="+" LE="0.20117"/>
+                    <TPEGOpenLRBase64>CCkBEAAlJDPKJQ2ROAAJBQQDA4sACgUEA4FJAP/J/1IACQUEAwMQADAAAA==</TPEGOpenLRBase64>
+                    <CF TY="TR" SP="7.86" SU="7.86" FF="13.0" JF="2.19143" CN="0.73" TS="O"/>
+                </FI>
+                <FI>
+                    <TMC PC="329" DE="Ramkrishna Mission Road" QD="+" LE="0.11392"/>
+                    <TPEGOpenLRBase64>CCgBEAAkIzPKDA2Q5wAJBQQDA48ACgQDA3IA/9T/ogAJBQQDAxIAMAAA</TPEGOpenLRBase64>
+                    <CF TY="TR" SP="12.5" SU="12.5" FF="11.0" JF="0.0" CN="0.89" TS="O"/>
+                </FI>
+                <FI>
+                    <TMC PC="328" DE="Moti Dayal Chowk/Govind Patil Road/Chitrakar Dhurandhar Marg" QD="+" LE="0.29234"/>
+                    <TPEGOpenLRBase64>CCkBEAAlJDPJ9w2QuwAJBQQDA5YACgUEA4IkAP8m/4kACQUEAwMIADAAAA==</TPEGOpenLRBase64>
+                    <CF TY="TR" SP="11.53" SU="11.53" FF="16.0" JF="1.22888" CN="0.8" TS="O"/>
+                </FI>
+            </FIS>
+        </RW>
+        <RW LI="502+00327" DE="19th Road/Shree Maruai Mandir Marg" PBT="2026-01-29T08:38:13Z" mid="9aef4701-a1af-4a5d-aa67-f1cb0dde954c">
+            <FIS>
+                <FI>
+                    <TMC PC="328" DE="Moti Dayal Chowk/Govind Patil Road/Chitrakar Dhurandhar Marg" QD="-" LE="0.02925"/>
+                    <TPEGOpenLRBase64>CCgBEAAkIzPJkQ2QhAAJBQQDAwgACgQDAx0AAAUAGgAJBQQDA4gAMAAA</TPEGOpenLRBase64>
+                    <CF TY="TR" SP="50.0" SU="55.79" FF="10.0" JF="0.0" CN="0.86" TS="O"/>
+                </FI>
+                <FI>
+                    <TMC PC="329" DE="Ramkrishna Mission Road" QD="-" LE="0.26308"/>
+                    <TPEGOpenLRBase64>CCkBEAAlJDPJlA2QkAAJBQQDAxEACgUEA4IHAADVAF0ACQUEAwOWADAAAA==</TPEGOpenLRBase64>
+                    <CF TY="TR" SP="10.24" SU="10.24" FF="16.0" JF="2.30202" CN="0.73" TS="O"/>
+                </FI>
+                <FI>
+                    <TMC PC="330" DE="B. C. Chatterjee Marg/Main Avenue Road" QD="-" LE="0.11392"/>
+                    <TPEGOpenLRBase64>CCgBEAAkIzPJ9w2QuwAJBQQDAxIACgQDA3IAACwAXgAJBQQDA48AMAAA</TPEGOpenLRBase64>
+                    <CF TY="TR" SP="8.25" SU="8.25" FF="16.0" JF="3.95507" CN="0.72" TS="O"/>
+                </FI>
+                <FI>
+                    <TMC PC="331" DE="Hanuman Chowk/North Avenue" QD="-" LE="0.20117"/>
+                    <TPEGOpenLRBase64>CCkBEAAlJDPKDA2Q5wAJBQQDAxAACgUEA4FJAAA3AK4ACQUEAwOLADAAAA==</TPEGOpenLRBase64>
+                    <CF TY="TR" SP="7.2" SU="7.2" FF="12.0" JF="2.00302" CN="0.88" TS="O"/>
+                </FI>
+                <FI>
+                    <TMC PC="332" DE="Gazdahar Chowk/Juhu Road" QD="-" LE="0.72557"/>
+                    <TPEGOpenLRBase64>CCkBEAAlJDPKJQ2ROAAJBQQDAwsACgUEA4VUAAEuAkoACQUEAwOJADAAAA==</TPEGOpenLRBase64>
+                    <CF TY="TR" SP="6.99" SU="6.99" FF="16.0" JF="7.75474" CN="0.99" TS="O">
+                        <SSS>
+                            <SS LE="0.10601" SP="12.04" SU="12.04" FF="16.0" JF="3.29839" TS="O"/>
+                            <SS LE="0.45428" SP="5.7" SU="5.7" FF="16.0" JF="8.32824" TS="O"/>
+                            <SS LE="0.16527" SP="10.86" SU="10.86" FF="16.0" JF="4.30296" TS="O"/>
+                        </SSS>
+                    </CF>
+                </FI>
+            </FIS>
+        </RW>
+                <RW PBT="2026-01-29T08:35:57Z" mid="97a45960-69f5-497d-8198-dd63e86b7a1f">
+            <FIS>
+                <FI>
+                    <SHP FC="3" LID="1388994976F" LE="0.07143" FW="SD">26.09664,87.94811 26.09696,87.94873</SHP>
+                    <SHP FC="3" LID="1339780345F" LE="0.20423" FW="SD">26.09696,87.94873 26.09783,87.95053</SHP>
+                    <SHP FC="3" LID="1339780346F" LE="0.18928" FW="SD">26.09783,87.95053 26.09865,87.95219</SHP>
+                    <SHP FC="3" LID="1305733740F" LE="0.05657" FW="SD">26.09865,87.95219 26.09879,87.95244 26.09892,87.95267</SHP>
+                    <SHP FC="3" LID="1340063505F" LE="0.25948" FW="SD">26.09892,87.95267 26.09918,87.95317 26.0994,87.95354 26.09957,87.95381 26.09973,87.95407 26.09989,87.95431 26.10008,87.95456 26.10025,87.9548</SHP>
+                    <TPEGOpenLRBase64>CCoBEAAmJT6JrhKOXgAJBQQCAysACgUEAopmAASlAnoACQUEAgOkADCDanA=</TPEGOpenLRBase64>
+                    <CF TY="TR" SP="11.56" SU="11.56" FF="22.0" JF="6.49079" CN="0.86" TS="O">
+                        <SSS>
+                            <SS LE="0.46496" SP="8.49" SU="8.49" FF="15.52" JF="6.18246" TS="O"/>
+                            <SS LE="0.31605" SP="24.73" SU="24.73" FF="79.0" JF="8.55051" TS="O"/>
+                        </SSS>
+                    </CF>
+                </FI>
+            </FIS>
+        </RW>
+        <RW PBT="2026-01-29T08:33:16Z" mid="6b34a793-08f3-4181-b3fe-6ffc5cf90a12">
+            <FIS>
+                <FI>
+                    <SHP FC="3" LID="1193346210F" LE="0.01939" FW="SD">26.50897,84.83435 26.50905,84.8344 26.50908,84.83442 26.50912,84.83445</SHP>
+                    <SHP FC="3" LID="1193346211F" LE="0.06595" FW="SD">26.50912,84.83445 26.50952,84.83494</SHP>
+                    <SHP FC="3" LID="1330550452F" LE="0.33868" FW="SD">26.50952,84.83494 26.51067,84.83638 26.5111,84.83694 26.51154,84.83749</SHP>
+                    <SHP FC="3" LID="1339645012F" LE="0.02519" FW="SD">26.51154,84.83749 26.51169,84.83768</SHP>
+                    <SHP FC="3" LID="1339645013F" LE="0.02149" FW="SD">26.51169,84.83768 26.51182,84.83784</SHP>
+                    <SHP FC="3" LID="1339645020F" LE="0.02742" FW="SD">26.51182,84.83784 26.51199,84.83804</SHP>
+                    <SHP FC="3" LID="1339645021F" LE="0.21058" FW="SD">26.51199,84.83804 26.51321,84.83966</SHP>
+                    <SHP FC="3" LID="1193314010F" LE="0.01482" FW="SD">26.51321,84.83966 26.5133,84.83977</SHP>
+                    <SHP FC="3" LID="1193314753F" LE="0.01852" FW="SD">26.5133,84.83977 26.51341,84.83991</SHP>
+                    <SHP FC="3" LID="1193314012F" LE="0.15348" FW="SD">26.51341,84.83991 26.51408,84.84076 26.51418,84.84089 26.51431,84.84108</SHP>
+                    <SHP FC="3" LID="1049963988F" LE="0.06699" FW="SD">26.51431,84.84108 26.51467,84.84162</SHP>
+                    <SHP FC="3" LID="1377353349F" LE="0.07643" FW="SD">26.51467,84.84162 26.51505,84.84226</SHP>
+                    <SHP FC="3" LID="1377353350F" LE="0.0599" FW="SD">26.51505,84.84226 26.51535,84.84276</SHP>
+                    <SHP FC="3" LID="1330664814F" LE="0.03078" FW="SD">26.51535,84.84276 26.5155,84.84302</SHP>
+                    <SHP FC="3" LID="1330664815F" LE="0.02368" FW="SD">26.5155,84.84302 26.5156,84.84323</SHP>
+                    <SHP FC="3" LID="1330664812F" LE="0.02508" FW="SD">26.5156,84.84323 26.51571,84.84345</SHP>
+                    <SHP FC="3" LID="1330664813F" LE="0.09789" FW="SD">26.51571,84.84345 26.51612,84.84432</SHP>
+                    <SHP FC="3" LID="1067522635F" LE="0.04182" FW="SD">26.51612,84.84432 26.51628,84.8447</SHP>
+                    <SHP FC="3" LID="1067522636F" LE="0.03824" FW="SD">26.51628,84.8447 26.51644,84.84504</SHP>
+                    <SHP FC="3" LID="1067522634F" LE="0.18461" FW="SD">26.51644,84.84504 26.51671,84.84568 26.51686,84.84609 26.51693,84.84629 26.5171,84.84674</SHP>
+                    <SHP FC="3" LID="1049968615F" LE="0.02738" FW="SD">26.5171,84.84674 26.51718,84.847</SHP>
+                    <SHP FC="3" LID="1339645028F" LE="0.04521" FW="SD">26.51718,84.847 26.51731,84.84743</SHP>
+                    <SHP FC="3" LID="1339645029F" LE="0.07544" FW="SD">26.51731,84.84743 26.51752,84.84815</SHP>
+                    <SHP FC="3" LID="1330517469F" LE="0.03967" FW="SD">26.51752,84.84815 26.51756,84.84833 26.51759,84.84854</SHP>
+                    <TPEGOpenLRBase64>CCkBEAAlJDxTnxLZ0AAJBQQCAxUACgUEAo1VAAWgA10ACQUEAgbDADAAFQ==</TPEGOpenLRBase64>
+                    <CF TY="TR" SP="36.72" SU="36.72" FF="69.0" JF="6.3974" CN="0.93" TS="O">
+                        <SSS>
+                            <SS LE="0.49814" SP="36.41" SU="36.41" FF="69.23" JF="6.48736" TS="O"/>
+                            <SS LE="0.21058" SP="14.77" SU="14.77" FF="72.0" JF="9.10571" TS="O"/>
+                            <SS LE="0.18683" SP="25.86" SU="25.86" FF="56.46" JF="7.45719" TS="O"/>
+                            <SS LE="0.83319" SP="50.0" SU="69.97" FF="73.35" JF="0.61468" TS="O"/>
+                        </SSS>
+                    </CF>
+                </FI>
+            </FIS>
+        </RW>
+    </RWS>
+    <diagnostic sfile="RealtimeFlowF2502-1769675893654.xml.gz|pr5" pdd="trafficml-flow-dlr.322-v4"/>
+</TRAFFICML_REALTIME>

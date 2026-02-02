@@ -1,0 +1,191 @@
+Features:
+DLR_AGGREGATION:Allow flow feed to have a large expansion on OFF-TMC roads.
+
+The OpenLR feature provides the traffic content in a standard, map-independent 
+format. 
+
+The FEATURES element should be used to determine if the feature is available in the feed.  For example, the HOV feature will not be in the initial feed, but when the feature becomes available, the HOV type will be used to identify HOV lanes. 
+
+TMC codes are a reference system designed to give a unique alpha-numeric code to 
+road segment for the purposes of assigning traffic information to that segment.   
+
+The fundamental segment representing roadways in the HERE map is defined as the 
+LINK_ID.  
+
+Linking TMCs to a Map 
+3.5.1 Introduction
+The directional information from the link is defined as “F”, “T” or “B” in the 
+HERE map.   This refers to the direction to (“T”) or from (“F”) the reference node.   
+“B” refers to links that can be driven in both directions and are represented as a 
+single line in the HERE map.   In order to link TMCs to the HERE map, these 
+segments must be joined to an associated layer called LinkTMC. 
+
+3.5.2 Link Feature Class (geometry)
+Link Feature Class (geometry)  
+In the Link Feature Class, each road segment is assigned a LINK_ID and a direction 
+(TRAVEL_DIR) equal to ‘T’, ‘F’ or ‘B’. Bi-directional links that are coded as a single 
+digitized link will have direction = ‘B’. In order to associate the TMC code with the 
+streets layer in the correct direction of travel: 
+A link record should be created for ‘F’ (From) links when DIR_TRAVEL = ‘F’ or 'B.'   
+A link record should be created for ‘T’ (To) links when DIR_TRAVEL = 'T' or 'B.' 
+When this is complete, the two layers can be linked using a join or relate method 
+based on the Road Direction attribute in the LinkTMC layer to the DIR_TRAVEL in the 
+Link layer (‘F’ or ‘T’).   
+
+unique tags:
+CF
+FEATURE
+FEATURES
+FI
+FIS
+LN
+RW
+RWS
+SHP
+SS
+SSS
+TMC
+TPEGOpenLRBase64
+TRAFFICML_REALTIME
+diagnostic
+
+Traffic ML Flow Features:
+
+specification: Please refer to the document TrafficML 3.2.2 Real-time Flow Feed Specification for 
+detailed information on the XML format and specifications. 
+
+Update Frequency :
+Each file will be updated every 60 seconds and the creation of the files will be 
+distributed across every minute.  The recommended approach is to poll the file 
+every 10-15 seconds to see if the file has been updated since you previously 
+updated this file.  This will ensure that you are minimizing the latency to retrieve 
+the freshest data.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Here’s a structured extraction of the **important XML/attribute tags** and elements mentioned throughout the *TrafficML Flow 3.2.2 Implementation Guide*:
+
+---
+
+## 🔑 Core TrafficML Tags
+
+- **TMC**  
+  - Attributes: `PC` (Point Code), `DE` (Description), `QD` (Queue Direction), `LE` (Length)  
+  - Defines Traffic Message Channel location references.
+
+- **CF (Current Flow)**  
+  - Attributes: `TY` (Type), `SP` (Speed), `SU` (Speed Uncertainty), `FF` (Free Flow), `JF` (Jam Factor), `CN` (Confidence)  
+  - Represents current traffic flow conditions.
+
+- **SSS (SubSegment Set)**  
+  - Groups multiple sub-segments under a flow item.
+
+- **SS (SubSegment)**  
+  - Attributes: `LE` (Length), `SP` (Speed), `SU` (Speed Uncertainty), `FF` (Free Flow), `JF` (Jam Factor)  
+  - Represents traffic conditions for part of a segment.
+
+- **LN (Lane)**  
+  - Attributes: `NM` (Lane Number), `TY` (Lane Type e.g., HOV), `SU` (Speed Uncertainty), `JF` (Jam Factor)  
+  - Used for lane-level traffic reporting.
+
+- **PF (Predicted Flow)**  
+  - Contains predictive traffic information.
+
+- **P (Prediction)**  
+  - Attributes: `UT` (Until Time in minutes from base), `SP` (Predicted Speed)  
+  - Represents forecasted traffic speeds.
+
+---
+
+## 📊 Location Referencing Tags
+
+- **RW (Roadway)**  
+  - Attributes: `LI` (Location Identifier), `DE` (Description), `PBT` (Predictive Base Time)  
+  - Defines a roadway segment.
+
+- **FIS (Flow Item Set)**  
+  - Groups multiple flow items for a roadway.
+
+- **FI (Flow Item)**  
+  - Contains traffic flow data for a specific location reference.
+
+- **SHP (Shape)**  
+  - Used for Off-TMC roads referencing geometry.
+
+- **TPEGOpenLRBase64**  
+  - Encodes OpenLR location references in Base64 format.
+
+---
+
+## 🚦 Traffic Attributes
+
+- **JamFactor (JF)** → 0–10 scale (0 = free flow, 10 = stopped traffic).  
+- **Confidence (CN)** → 0.70 = historical only, ≥0.71 = real-time, ≥0.75 = high confidence.  
+- **TraversabilityState** → `"Closed"`, `"RNR"` (Reversible Not Routable).  
+- **JTS (Junction Traversability Status)** →  
+  - `1` = All junctions closed  
+  - `2` = Intermediate closed, edge open (default)  
+  - `3` = All junctions open  
+
+---
+
+## 🗂 Supporting Metadata
+
+- **LINK_ID** → Unique identifier for road segments in HERE map.  
+- **DIR_TRAVEL / TRAVEL_DIR** → Direction of travel (`F`, `T`, `B`).  
+- **Road_Direction** → Direction attribute in LinkTMC layer.  
+- **ECC (Extended Country Code)** → Differentiates countries with same code.  
+- **Location_Table_NR** → Identifies traffic table.  
+- **Location_Code** → Specific location reference.
+
+---
+
+✅ This list captures all the **important tags and attributes** that developers and integrators need to parse, interpret, and implement TrafficML Flow 3.2.2 feeds.  
+
+Would you like me to also **map these tags to their practical meaning in implementation** (e.g., how `CF` + `JF` + `CN` combine to show congestion on a map)? That would make it easier to use this as a **study guide**.
